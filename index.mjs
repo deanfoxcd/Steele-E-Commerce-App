@@ -1,6 +1,8 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.send(`
@@ -15,18 +17,28 @@ app.get('/', (req, res) => {
     `);
 });
 
-app.post('/', (req, res) => {
-  req.on('data', (data) => {
-    const parsedData = data.toString('utf8').split('&');
-    const formData = {};
-    parsedData.forEach((field) => {
-      const [key, value] = field.split('=');
-
-      formData[key] = value;
+// Used before we decided to import the bodyParser library
+/*
+const bodyParser = function (req, res, next) {
+  if (req.method === 'POST') {
+    req.on('data', (data) => {
+      const parsedData = data.toString('utf8').split('&');
+      const formData = {};
+      parsedData.forEach((field) => {
+        const [key, value] = field.split('=');
+        formData[key] = value;
+      });
+      req.body = formData;
+      next();
     });
-    console.log(formData);
-    // console.log(parsedData);
-  });
+  } else {
+    next();
+  }
+};
+*/
+
+app.post('/', (req, res) => {
+  console.log(req.body);
   res.send('Account created!');
 });
 
