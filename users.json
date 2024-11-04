@@ -1,13 +1,9 @@
 [
   {
-    "email": "deanfoxcd@gmail.com",
-    "password": "test",
-    "id": "3a5d0927"
-  },
-  {
     "email": "test1@test.com",
     "password": "d7487f1fa19efc5361a611d3313cb709d3fdb35ebe827c4eccf0a069ed5692b9574102167a3192bd50e2b3b7d456da1738b191596768f61d0df7d8f388a65c76.5223520255281901",
-    "id": "8e270877"
+    "id": "8e270877",
+    "_": "password"
   },
   {
     "email": "test3@test.com",

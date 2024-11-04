@@ -40,7 +40,9 @@ router.post(
   ],
   async (req, res) => {
     const errors = validationResult(req);
-    console.log(errors);
+    if (!errors.isEmpty()) {
+      return res.send(signup({ req, errors }));
+    }
 
     const { email, password, passwordConfirm } = req.body;
     const user = await instance.create({ email, password });
@@ -57,22 +59,24 @@ router.get('/signout', (req, res) => {
 });
 
 router.get('/signin', (req, res) => {
-  res.send(signin());
+  res.send(signin({}));
 });
 
-router.post('/signin', async (req, res) => {
-  const { email, password } = req.body;
-  const user = await instance.getOneBy({ email });
+router.post(
+  '/signin',
+  [validators.requireEmailExists, validators.requireValidUserPassword],
+  async (req, res) => {
+    const errors = validationResult(req);
+    console.log(errors);
+    if (!errors.isEmpty()) {
+      return res.send(signin({ req, errors }));
+    }
 
-  if (!user) return res.send('User not found');
+    const { email } = req.body;
+    const user = await instance.getOneBy({ email });
 
-  const validPassword = await instance.comparePasswords(
-    user.password,
-    password
-  );
-  if (!validPassword) return res.send('Invalid password');
+    req.session.userId = user.id;
 
-  req.session.userId = user.id;
-
-  res.send('You are signed in');
-});
+    res.send('You are signed in');
+  }
+);
