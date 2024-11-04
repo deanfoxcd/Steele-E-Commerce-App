@@ -1,7 +1,17 @@
 import { check } from 'express-validator';
 import { instance } from '../../repositories/users.mjs';
+import { productsRepo } from '../../repositories/products.js';
 
 export default {
+  requireTitle: check('title')
+    .trim()
+    .isLength({ min: 5, max: 40 })
+    .withMessage('Must be between 5 and 20 characters long'),
+  requirePrice: check('price')
+    .trim()
+    .toFloat()
+    .isFloat({ min: 1 })
+    .withMessage('Must be a number greater than 1'),
   requireEmail: check('email')
     .trim()
     .normalizeEmail()
