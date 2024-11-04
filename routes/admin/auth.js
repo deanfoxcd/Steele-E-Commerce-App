@@ -1,7 +1,9 @@
 import express from 'express';
+import { check, validationResult } from 'express-validator';
 import { instance } from '../../repositories/users.mjs';
 import signup from '../../views/admin/auth/signup.js';
 import signin from '../../views/admin/auth/signin.js';
+import validators from './validators.js';
 
 export const router = express.Router();
 
@@ -29,19 +31,25 @@ const bodyParser = function (req, res, next) {
 };
 */
 
-router.post('/signup', async (req, res) => {
-  const { email, password, passwordConfirm } = req.body;
+router.post(
+  '/signup',
+  [
+    validators.requireEmail,
+    validators.requirePassword,
+    validators.requirePasswordConfirm,
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    console.log(errors);
 
-  const existingUser = await instance.getOneBy({ email });
-  if (existingUser) return res.send('Account already exists for this email');
-  if (password !== passwordConfirm) return res.send('Passwords do not match');
+    const { email, password, passwordConfirm } = req.body;
+    const user = await instance.create({ email, password });
 
-  const user = await instance.create({ email, password });
+    req.session.userId = user.id; // Added by cookie session
 
-  req.session.userId = user.id; // Added by cookie session
-
-  res.send('Account created!');
-});
+    res.send('Account created!');
+  }
+);
 
 router.get('/signout', (req, res) => {
   req.session = null;
