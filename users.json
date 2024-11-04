@@ -1,0 +1,17 @@
+[
+  {
+    "email": "deanfoxcd@gmail.com",
+    "password": "test",
+    "id": "3a5d0927"
+  },
+  {
+    "email": "test1@test.com",
+    "password": "d7487f1fa19efc5361a611d3313cb709d3fdb35ebe827c4eccf0a069ed5692b9574102167a3192bd50e2b3b7d456da1738b191596768f61d0df7d8f388a65c76.5223520255281901",
+    "id": "8e270877"
+  },
+  {
+    "email": "test3@test.com",
+    "password": "1c84f31b78cb78e3124a9644feb51c4e36942ccc603cd17fc196a4eb8a89e79ef4ca09c4c42aff31e68e385ad5c6a1cc871a4a90e83fb37c84250c797d4415e6.ddec0e216cb06bd9",
+    "id": "6454d8e4"
+  }
+]
