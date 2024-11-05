@@ -16,7 +16,7 @@ export class Repository {
   }
 
   async create(atts) {
-    atts.id = this.randomId;
+    atts.id = this.randomId();
 
     const records = await this.getAll();
     records.push(atts);

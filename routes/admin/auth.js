@@ -1,9 +1,9 @@
 import express from 'express';
-import { check, validationResult } from 'express-validator';
 import { instance } from '../../repositories/users.mjs';
 import signup from '../../views/admin/auth/signup.js';
 import signin from '../../views/admin/auth/signin.js';
 import validators from './validators.js';
+import { handleErrors } from './middleware.js';
 
 export const router = express.Router();
 
@@ -38,13 +38,9 @@ router.post(
     validators.requirePassword,
     validators.requirePasswordConfirm,
   ],
+  handleErrors(signup),
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.send(signup({ req, errors }));
-    }
-
-    const { email, password, passwordConfirm } = req.body;
+    const { email, password } = req.body;
     const user = await instance.create({ email, password });
 
     req.session.userId = user.id; // Added by cookie session
@@ -65,13 +61,8 @@ router.get('/signin', (req, res) => {
 router.post(
   '/signin',
   [validators.requireEmailExists, validators.requireValidUserPassword],
+  handleErrors(signin),
   async (req, res) => {
-    const errors = validationResult(req);
-    console.log(errors);
-    if (!errors.isEmpty()) {
-      return res.send(signin({ req, errors }));
-    }
-
     const { email } = req.body;
     const user = await instance.getOneBy({ email });
 
