@@ -10,7 +10,7 @@ export default ({ content }) => {
       <link href="/css/main.css" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"></link>
     </head>
-    <body class="admin>
+    <body class="admin">
       <header>
         <nav class="navbar navbar-bottom">
           <div class="container navbar-container">
@@ -22,7 +22,7 @@ export default ({ content }) => {
             <div class="navbar-item">
               <div class="navbar-buttons">
                 <div class="navbar-item">
-                  <a href="/admin/products"><i class="fa fa-star"></i> Products</a>
+                  <a href="/admin/products"><i class="fa fa-star"></i>Products</a>
                 </div>
               </div>
             </div>
