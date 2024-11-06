@@ -18,7 +18,8 @@ export default ({ items }) => {
               $${item.product.price * item.quantity}
             </div>
             <div class="remove">
-              <form method="POST">
+              <form method="POST" action="/cart/products/delete">
+              <input hidden value="${item.id}" name="itemId" />
                 <button class="button is-danger">                  
                   <span class="icon is-small">
                     <i class="fas fa-times"></i>
@@ -46,7 +47,7 @@ export default ({ items }) => {
               <div class="message-header">
                 Total
               </div>
-              <h1 class="title">${totalPrice}</h1>
+              <h1 class="title">$${totalPrice}</h1>
               <button class="button is-primary">Buy</button>
             </div>
           </div>
