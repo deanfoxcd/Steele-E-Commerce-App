@@ -1,6 +1,5 @@
 import fs from 'fs';
 import crypto from 'crypto';
-import util from 'util';
 
 export class Repository {
   constructor(filename) {

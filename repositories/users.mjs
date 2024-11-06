@@ -1,4 +1,3 @@
-import fs from 'fs';
 import crypto from 'crypto';
 import util from 'util';
 import { Repository } from './repository.js';
